@@ -1,0 +1,54 @@
+<html>
+    <body>
+        <h1>Development Image Board Server</h1>
+        <p>
+            This REST API server + Redis implementation allows for the posting of images with an inbuilt simple contributors (users) system.
+        </p>
+        <br>
+        <h3>Contributor management system</h3>
+        <p>
+            The contributor system lists all current contributors of the image board. Users must be registered to modify or post new images.
+            <br><br>
+            To view all contributors, GET /contributors. Several query parameters are available:
+            - sortBy: sorts returned users. Only acceptable inputs are "username" and "name"
+            - count: number of users to return in post-sorted list (if sorting is done), after offset (if any)
+            - offset: number of users to skip in post-sorted list
+            <br><br>
+            To add a new contributor, POST to /contributors info in the following format:
+            {
+                "username": string of 3-20 characters that are alphanumeric or underscore,
+                "name": string of 3-30 characters that are alphanumeric or space,
+                "bio": string
+            }
+            This creates a new contributor, or updates the contributor's info if it already exists.
+            <br><br>
+            To view a specific existing contributor's info, GET /contributors/[contributor's username].
+
+            To update an existing contributor's info, PUT to /contributors/[contributor's username], in the following format:
+            {
+                "username": string of 3-20 characters that are alphanumeric or underscore,
+                "name": string of 3-30 characters that are alphanumeric or space,
+                "bio": string
+            }
+            This updates the contributor's info.
+            <br><br>
+            To delete an existing contributor, DELETE /contributors/[contributor's username].
+        </p>
+        <br>
+        <h3>Image management system</h3>
+        <p>
+            The image system stores images which are for public viewing.
+            <br><br>
+            To add a new image, POST to /images with:
+            - a PNG image under the "file" key
+            - a username under the "username" key
+            as form data. Note that only valid PNG images are accepted for now, and that users must be currently registered.
+            <br><br>
+            To view an image, GET /images/[image's identifier].
+            <br><br>
+            To update an image, PUT to /images/[image's identifier] with the same format as for adding new images.
+            <br><br>
+            To delete an image, DELETE /images/[image's identifier].
+        </p>
+    </body>
+</html>

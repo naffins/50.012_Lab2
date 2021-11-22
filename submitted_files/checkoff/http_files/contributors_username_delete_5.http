@@ -1,0 +1,2 @@
+DELETE http://127.0.0.1:8000/contributors/sssss HTTP/1.1
+
